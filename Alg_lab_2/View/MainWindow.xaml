@@ -30,21 +30,5 @@
                 <TextBlock FontSize="12" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-
-        <Button x:Name="End" Command="{Binding  EndWork}" Grid.Column="1" Grid.Row="5" Background="DarkSeaGreen">
-            <Button.Content>
-                <TextBlock FontSize="12" Text="End" TextWrapping="Wrap" TextAlignment="Center"/>
-            </Button.Content>
-        </Button>
-
-        <TextBox Grid.Column="1" Grid.Row ="1" Text="{Binding Count}" TextWrapping="Wrap"  TextAlignment="Center"></TextBox>
-
-        <!--<Canvas Name="Canv" Width="500" Height="400" Grid.Column="3" Grid.Row="1" Grid.RowSpan="6" >-->
-        <!--<Image x:Name="Imag" Source="{Binding Img}"></Image> -->
-        <!--</Canvas> -->
-        <!-- <Image x:Name="Imag" Grid.Column="3" Grid.Row="1" Source="{Binding Img}" Grid.RowSpan="6"></Image> -->
-        <Canvas Name="Canv"  Width="500" Height="400" Grid.Column="3" Grid.Row="1" Grid.RowSpan="6" >
-           
-        </Canvas>
     </Grid>
 </Window>
