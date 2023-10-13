@@ -23,8 +23,6 @@ namespace Alg_lab_2.ViewModel
     {
         public int Width = 400;
         public int Height = 500;
-        static CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        static CancellationToken token = cancellationTokenSource.Token;
         public DragonFractal WindowDF { get; set; }
         public int minValue = 1;
         private List<Canvas> canvasList = new List<Canvas>();
@@ -102,7 +100,6 @@ namespace Alg_lab_2.ViewModel
         public ICommand DoForward => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
-            //cancellationTokenSource.Cancel();
             Lines.Clear();
             MakeSettings();
             DragonFunction dragonFunction = new DragonFunction();
@@ -116,7 +113,6 @@ namespace Alg_lab_2.ViewModel
         public ICommand DoBack => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
-            //cancellationTokenSource.Cancel();
             Lines.Clear();
             MakeSettings();
             DragonFunction dragonFunction = new DragonFunction();
@@ -138,7 +134,6 @@ namespace Alg_lab_2.ViewModel
 
         public ICommand DoDelete => new DelegateCommand(param =>
         {
-            cancellationTokenSource.Cancel();
             Canvas.Children.Clear();
             Lines.Clear();
             ClearData();
@@ -166,11 +161,6 @@ namespace Alg_lab_2.ViewModel
         {
             for(int i = 0; i < lines.Count; i++)
             {
-                if (token.IsCancellationRequested)
-                {
-                    Canvas.Children.Clear();
-                    return;
-                }
                 Canvas.Children.Add(lines[i]);
                 await Task.Delay(5);
                 //Canvas canv = new Canvas();
