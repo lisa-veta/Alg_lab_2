@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alg_lab_2.View" 
         mc:Ignorable="d"
-        Title="DragonFractal" Height="550" Width="800">
+        Title="DragonFractal" Height="650" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
@@ -22,20 +24,36 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="10*" />
             <ColumnDefinition Width="100*" />
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
         <Button x:Name="Edit" Command="{Binding  StartWork}" Grid.Column="1" Grid.Row="3" Background="DarkSeaGreen">
             <Button.Content>
-                <TextBlock FontSize="12" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="14" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
 
-        <Button x:Name="End" Command="{Binding  EndWork}" Grid.Column="1" Grid.Row="5" Background="DarkSeaGreen">
+        <Button x:Name="End" Command="{Binding  EndWork}" Grid.Column="3" Grid.Row="3" Background="DarkSeaGreen">
             <Button.Content>
-                <TextBlock FontSize="12" Text="End" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="14" Text="End" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="DoForward" Command="{Binding  DoForward}" Grid.Column="3" Grid.Row="5" Background="DarkSeaGreen">
+            <Button.Content>
+                <TextBlock FontSize="20" Text="→" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="DoBack" Command="{Binding  DoBack}" Grid.Column="1" Grid.Row="5" Background="DarkSeaGreen">
+            <Button.Content>
+                <TextBlock FontSize="20" Text="←" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="DoDelete" Command="{Binding  DoDelete}" Grid.Column="1" Grid.Row="7" Background="DarkSeaGreen">
+            <Button.Content>
+                <TextBlock FontSize="14" Text="Delete" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
 
@@ -45,10 +63,10 @@
         <!--<Image x:Name="Imag" Source="{Binding Img}"></Image> -->
         <!--</Canvas> -->
         <!-- <Image x:Name="Imag" Grid.Column="3" Grid.Row="1" Source="{Binding Img}" Grid.RowSpan="6"></Image> -->
-        <Canvas Name="Canv"  Width="{Binding Width}" Height="{Binding Height}" Grid.Column="3" Grid.Row="1" Grid.RowSpan="6" >
-            <ContentPresenter Content="{Binding CurrentCanvas}" />
+        <Canvas Name="Canv"  Width="{Binding Width}" Height="{Binding Height}" Grid.Column="4" Grid.Row="1" Grid.RowSpan="8" >
+            <ContentPresenter Content="{Binding Canvas}" />
         </Canvas>
-        <Slider x:Name="Slider" Grid.Row="8" Grid.Column="3" Value="{Binding Slider}" Minimum="{Binding minValue}" Maximum="{Binding Count}"></Slider>
-        <TextBox Grid.Column="1" Grid.Row ="8" Text="{Binding Slider}" TextWrapping="Wrap"  TextAlignment="Center"></TextBox>
+        <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Value="{Binding Slider}" Minimum="{Binding minValue}" Maximum="{Binding Count}"></Slider>
+        <TextBox Grid.Column="1" Grid.Row ="10" Text="{Binding Slider}" TextWrapping="Wrap"  TextAlignment="Center"></TextBox>
     </Grid>
 </Window>

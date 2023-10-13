@@ -5,29 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alg_lab_2.View" xmlns:viewmodel="clr-namespace:Alg_lab_2.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="800">
+        Title="MainWindow" Height="300" Width="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
-            <RowDefinition Height="200*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="10*" />
             <ColumnDefinition Width="10*" />
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
-
-        <Button x:Name="Edit" Command="{Binding  StartWork}" Grid.Column="1" Grid.Row="3" Background="DarkSeaGreen">
+        <Button x:Name="Fractal" Command="{Binding  StartWorkFractal}" Grid.Column="1" Grid.Row="1" Background="DarkSeaGreen">
             <Button.Content>
-                <TextBlock FontSize="12" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="12" Text="Fractal" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="Hannoi" Command="{Binding  StartWorkHanoi}" Grid.Column="1" Grid.Row="3" Background="DarkSeaGreen">
+            <Button.Content>
+                <TextBlock FontSize="12" Text="Hannoi Tower" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
     </Grid>

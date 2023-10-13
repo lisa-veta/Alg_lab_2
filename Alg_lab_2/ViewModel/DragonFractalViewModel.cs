@@ -21,8 +21,10 @@ namespace Alg_lab_2.ViewModel
 {
     public class DragonFractalViewModel : BaseViewModel
     {
-        public int Width = 500;
-        public int Height = 400;
+        public int Width = 400;
+        public int Height = 500;
+        static CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        static CancellationToken token = cancellationTokenSource.Token;
         public DragonFractal WindowDF { get; set; }
         public int minValue = 1;
         private List<Canvas> canvasList = new List<Canvas>();
@@ -93,7 +95,48 @@ namespace Alg_lab_2.ViewModel
             if (!isNotHasError) return;
             DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
-            DrawLines(dragonFunction.Lines);
+            DrawLines(dragonFunction.Lines, token);
+        });
+        public ICommand DoForward => new DelegateCommand(param =>
+        {
+            Canvas.Children.Clear();
+            cancellationTokenSource.Cancel();
+            Lines.Clear();
+            MakeSettings();
+            DragonFunction dragonFunction = new DragonFunction();
+            CountInt += 1;
+            Count = (CountInt).ToString();
+            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            ShowPicture(dragonFunction.Lines);
+        });
+
+        public ICommand DoBack => new DelegateCommand(param =>
+        {
+            Canvas.Children.Clear();
+            cancellationTokenSource.Cancel();
+            Lines.Clear();
+            MakeSettings();
+            DragonFunction dragonFunction = new DragonFunction();
+            CountInt -= 1;
+            Count = (CountInt).ToString();
+            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            ShowPicture(dragonFunction.Lines);
+        });
+
+        public ICommand EndWork => new DelegateCommand(param =>
+        {
+            Lines.Clear();
+            DragonFunction dragonFunction = new DragonFunction();
+            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            ShowPicture(dragonFunction.Lines);
+        });
+
+        public ICommand DoDelete => new DelegateCommand(param =>
+        {
+            cancellationTokenSource.Cancel();
+            Canvas.Children.Clear();
+            Lines.Clear();
+            ClearData();
         });
 
         private void MakeSettings()
@@ -114,23 +157,36 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
-        public void DrawLines(List<Line> lines)
+        public async void DrawLines(List<Line> lines, CancellationToken token)
         {
             for(int i = 0; i < lines.Count; i++)
             {
-                Canvas.Children.Add(lines[i]);
-                Canvas canv = new Canvas();
-                for(int j = 0; j < Canvas.Children.Count; j++)
+                if (token.IsCancellationRequested)
                 {
-                    Line myline = new Line();
-                    myline.Stroke = ColorBrush;
-                    myline.X1 = lines[j].X1;
-                    myline.Y1 = lines[j].Y1;
-                    myline.X2 = lines[j].X2;
-                    myline.Y2 = lines[j].Y2;
-                    canv.Children.Add(myline);
+                    Canvas.Children.Clear();
+                    return;
                 }
-                canvasList.Add(canv);
+                Canvas.Children.Add(lines[i]);
+                await Task.Delay(5);
+                //Canvas canv = new Canvas();
+                //for (int j = 0; j < Canvas.Children.Count; j++)
+                //{
+                //    Line myline = new Line();
+                //    myline.Stroke = ColorBrush;
+                //    myline.X1 = lines[j].X1;
+                //    myline.Y1 = lines[j].Y1;
+                //    myline.X2 = lines[j].X2;
+                //    myline.Y2 = lines[j].Y2;
+                //    canv.Children.Add(myline);
+                //}
+                //canvasList.Add(canv);
+            }
+        }
+        public void ShowPicture(List<Line> lines)
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                Canvas.Children.Add(lines[i]);
             }
         }
 
@@ -165,10 +221,6 @@ namespace Alg_lab_2.ViewModel
             Count = "";
         }
 
-        public ICommand EndWork => new DelegateCommand(param =>
-        {
-            Canvas.Children.Clear();
-            ClearData();
-        });
+       
     }
 }

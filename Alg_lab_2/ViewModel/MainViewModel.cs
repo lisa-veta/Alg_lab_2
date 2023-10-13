@@ -29,14 +29,20 @@ namespace Alg_lab_2.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        public static int depth = 5;
-
-        public ICommand StartWork => new DelegateCommand(param =>
+        public ICommand StartWorkFractal => new DelegateCommand(param =>
         {
             DragonFractal dragonFractalWindow = new DragonFractal();
             DragonFractalViewModel dragonFractalViewModel = new DragonFractalViewModel();
             dragonFractalWindow.DataContext = dragonFractalViewModel;
             dragonFractalWindow.Show();
+        });
+
+        public ICommand StartWorkHanoi => new DelegateCommand(param =>
+        {
+            HanoiTowerWindow hanoiTowerWindow = new HanoiTowerWindow();
+            HanoiTowerViewModel hanoiTowerViewModel = new HanoiTowerViewModel();
+            hanoiTowerWindow.DataContext = hanoiTowerViewModel;
+            hanoiTowerWindow.Show();
         });
 
     }
