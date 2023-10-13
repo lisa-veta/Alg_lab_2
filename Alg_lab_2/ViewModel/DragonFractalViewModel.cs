@@ -91,36 +91,40 @@ namespace Alg_lab_2.ViewModel
         public ICommand StartWork => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
+            Lines.Clear();
             MakeSettings();
             if (!isNotHasError) return;
             DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
-            DrawLines(dragonFunction.Lines, token);
+            Lines = dragonFunction.Lines;
+            DrawLines(Lines, token);
         });
         public ICommand DoForward => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
-            cancellationTokenSource.Cancel();
+            //cancellationTokenSource.Cancel();
             Lines.Clear();
             MakeSettings();
             DragonFunction dragonFunction = new DragonFunction();
             CountInt += 1;
             Count = (CountInt).ToString();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
-            ShowPicture(dragonFunction.Lines);
+            Lines = dragonFunction.Lines;
+            ShowPicture(Lines);
         });
 
         public ICommand DoBack => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
-            cancellationTokenSource.Cancel();
+            //cancellationTokenSource.Cancel();
             Lines.Clear();
             MakeSettings();
             DragonFunction dragonFunction = new DragonFunction();
             CountInt -= 1;
             Count = (CountInt).ToString();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
-            ShowPicture(dragonFunction.Lines);
+            Lines = dragonFunction.Lines;
+            ShowPicture(Lines);
         });
 
         public ICommand EndWork => new DelegateCommand(param =>
@@ -128,7 +132,8 @@ namespace Alg_lab_2.ViewModel
             Lines.Clear();
             DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
-            ShowPicture(dragonFunction.Lines);
+            Lines = dragonFunction.Lines;
+            ShowPicture(Lines);
         });
 
         public ICommand DoDelete => new DelegateCommand(param =>
