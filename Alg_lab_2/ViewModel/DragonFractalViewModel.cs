@@ -95,7 +95,7 @@ namespace Alg_lab_2.ViewModel
             DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
             Lines = dragonFunction.Lines;
-            DrawLines(Lines, token);
+            DrawLines(Lines);
         });
         public ICommand DoForward => new DelegateCommand(param =>
         {
@@ -157,7 +157,7 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
-        public async void DrawLines(List<Line> lines, CancellationToken token)
+        public async void DrawLines(List<Line> lines)
         {
             for(int i = 0; i < lines.Count; i++)
             {
