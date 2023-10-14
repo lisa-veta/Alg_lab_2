@@ -37,5 +37,24 @@ namespace Alg_lab_2.Model
                 MessageBox.Show("Не должно быть пустых полей");
             }
         }
+
+        public static int CheckCombo(string num, int minValue, int maxValue)
+        {
+            CheckNotNull(num);
+            CheckInt(num);
+            if (!isNotHasError)
+            {
+                num = "";
+                return 0;
+            }
+            int numInt = int.Parse(num);
+            CheckInterval(numInt, maxValue, minValue);
+            if (!isNotHasError)
+            {
+                num = "";
+                return numInt;
+            }
+            return numInt;
+        }
     }
 }

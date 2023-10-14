@@ -25,7 +25,6 @@ namespace Alg_lab_2.ViewModel
         public int Height = 500;
         public DragonFractal WindowDF { get; set; }
         public int minValue = 1;
-        private List<Canvas> canvasList = new List<Canvas>();
 
         private int _slider;
         public int Slider
@@ -50,17 +49,6 @@ namespace Alg_lab_2.ViewModel
         }
         private int CountInt;
 
-        private static ImageBrush _img;
-        public ImageBrush Img
-        {
-            get { return _img; }
-            set
-            {
-                _img = value;
-                OnPropertyChanged();
-            }
-        }
-
         private Canvas _canv = new Canvas();
         public Canvas Canvas
         {
@@ -72,26 +60,13 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
-        private Canvas _canvas = new Canvas();
-        public Canvas CurrentCanvas
-        {
-            get { return _canvas; }
-            set
-            {
-                _canvas = canvasList[Slider];
-                OnPropertyChanged();
-            }
-        }
-
-
-
         public static List<Line> Lines = new List<Line>();
         public ICommand StartWork => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
             Lines.Clear();
-            MakeSettings();
-            if (!isNotHasError) return;
+            CountInt = CheckCombo(Count, MinValueForFractal, MaxValueForFractal);
+            if (!isNotHasError) { Count = ""; return; };
             DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
             Lines = dragonFunction.Lines;
@@ -101,10 +76,11 @@ namespace Alg_lab_2.ViewModel
         {
             Canvas.Children.Clear();
             Lines.Clear();
-            MakeSettings();
-            DragonFunction dragonFunction = new DragonFunction();
             CountInt += 1;
             Count = (CountInt).ToString();
+            CountInt = CheckCombo(Count, MinValueForFractal, MaxValueForFractal);
+            if (!isNotHasError) { Count = (--CountInt).ToString(); };
+            DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
             Lines = dragonFunction.Lines;
             ShowPicture(Lines);
@@ -114,10 +90,11 @@ namespace Alg_lab_2.ViewModel
         {
             Canvas.Children.Clear();
             Lines.Clear();
-            MakeSettings();
-            DragonFunction dragonFunction = new DragonFunction();
             CountInt -= 1;
             Count = (CountInt).ToString();
+            CountInt = CheckCombo(Count, MinValueForFractal, MaxValueForFractal);
+            if (!isNotHasError) { Count = (++CountInt).ToString(); };
+            DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
             Lines = dragonFunction.Lines;
             ShowPicture(Lines);
@@ -138,24 +115,7 @@ namespace Alg_lab_2.ViewModel
             Lines.Clear();
             ClearData();
         });
-
-        private void MakeSettings()
-        {
-            CheckNotNull(Count);
-            CheckInt(Count);
-            if (!isNotHasError)
-            {
-                ClearData();
-                return;
-            }
-            CountInt = int.Parse(Count);
-            CheckInterval(CountInt, MaxValueForFractal, MinValueForFractal);
-            if (!isNotHasError)
-            {
-                ClearData();
-                return;
-            }
-        }
+        
 
         public async void DrawLines(List<Line> lines)
         {
@@ -182,32 +142,6 @@ namespace Alg_lab_2.ViewModel
             for (int i = 0; i < lines.Count; i++)
             {
                 Canvas.Children.Add(lines[i]);
-            }
-        }
-
-        private void Menu_Click_SaveImage(Canvas canvas)
-        {
-            Microsoft.Win32.SaveFileDialog saveimg = new Microsoft.Win32.SaveFileDialog();
-            //Canvas can = new Canvas();  // канвас уже есть
-            saveimg.DefaultExt = ".PNG";
-            saveimg.Filter = "Image (.PNG)|*.PNG";
-            if (saveimg.ShowDialog() == true)
-            {
-                ToImageSource(canvas, saveimg.FileName);  //DragArena  - имя имеющегося канваса
-            }
-        }
-
-        public static void ToImageSource(Canvas canvas, string filename)
-        {
-            RenderTargetBitmap bmp = new RenderTargetBitmap((int)canvas.ActualWidth, (int)canvas.ActualHeight, 96d, 96d, PixelFormats.Pbgra32);
-            canvas.Measure(new Size((int)canvas.ActualWidth, (int)canvas.ActualHeight));
-            canvas.Arrange(new Rect(new Size((int)canvas.ActualWidth, (int)canvas.ActualHeight)));
-            bmp.Render(canvas);
-            PngBitmapEncoder encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bmp));
-            using (FileStream file = File.Create(filename))
-            {
-                encoder.Save(file);
             }
         }
 
