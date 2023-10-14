@@ -34,7 +34,6 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
-
         private Canvas _canv0 = new Canvas();
         public Canvas Canvas0
         {
