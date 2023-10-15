@@ -26,7 +26,7 @@ namespace Alg_lab_2.ViewModel
         public DragonFractal WindowDF { get; set; }
         public int minValue = 1;
 
-        private int _slider;
+        private int _slider = 500;
         public int Slider
         {
             get { return _slider; }
@@ -102,6 +102,7 @@ namespace Alg_lab_2.ViewModel
 
         public ICommand EndWork => new DelegateCommand(param =>
         {
+            if (CountInt == 0) return; 
             Lines.Clear();
             DragonFunction dragonFunction = new DragonFunction();
             dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
@@ -122,19 +123,7 @@ namespace Alg_lab_2.ViewModel
             for(int i = 0; i < lines.Count; i++)
             {
                 Canvas.Children.Add(lines[i]);
-                await Task.Delay(5);
-                //Canvas canv = new Canvas();
-                //for (int j = 0; j < Canvas.Children.Count; j++)
-                //{
-                //    Line myline = new Line();
-                //    myline.Stroke = ColorBrush;
-                //    myline.X1 = lines[j].X1;
-                //    myline.Y1 = lines[j].Y1;
-                //    myline.X2 = lines[j].X2;
-                //    myline.Y2 = lines[j].Y2;
-                //    canv.Children.Add(myline);
-                //}
-                //canvasList.Add(canv);
+                await Task.Delay(1001 - Slider);
             }
         }
         public void ShowPicture(List<Line> lines)
@@ -147,6 +136,7 @@ namespace Alg_lab_2.ViewModel
 
         private void ClearData()
         {
+            CountInt = 0;
             Count = "";
         }
 

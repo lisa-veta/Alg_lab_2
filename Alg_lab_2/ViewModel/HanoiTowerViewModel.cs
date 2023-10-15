@@ -22,6 +22,18 @@ namespace Alg_lab_2.ViewModel
     {
         public HanoiTowerWindow WindowHT { get; set; }
         private int CountOfRingsInt;
+        public static List<ItemHanoi> HanoiList = new List<ItemHanoi>();
+
+        private int _slider = 500;
+        public int Slider
+        {
+            get { return _slider; }
+            set
+            {
+                _slider = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _count;
         public string CountOfRings
@@ -67,6 +79,17 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
+        private bool _isEnable = true;
+        public bool IsButtonEnable
+        {
+            get { return _isEnable; }
+            set
+            {
+                _isEnable = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand GetSetting => new DelegateCommand(param =>
         {
             CountOfRingsInt = CheckCombo(CountOfRings, MinValueForHanoi, MaxValueForHanoi);
@@ -92,6 +115,8 @@ namespace Alg_lab_2.ViewModel
                 rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom(RingColors[i]);
                 rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom(RingColors[i]);
                 rect.StrokeThickness = 1;
+                rect.RadiusX = 10;
+                rect.RadiusY = 10;
 
                 Canvas0.Children.Add(rect);
                 RingWidth -= RingWidthFall * 2;
@@ -101,18 +126,29 @@ namespace Alg_lab_2.ViewModel
         public ICommand StartWork => new DelegateCommand(param => 
         {
             HanoiTowerFunction hanoiTowerFunction = new HanoiTowerFunction();
+            HanoiList.Clear();
             hanoiTowerFunction.HanoiList.Clear();
             hanoiTowerFunction.DoHanoiTower(CountOfRingsInt);
-            MoveRings(hanoiTowerFunction);
+            HanoiList = hanoiTowerFunction.HanoiList;
+            MoveRings(hanoiTowerFunction.HanoiList);
+            IsButtonEnable = false;
         });
 
-        private async void MoveRings(HanoiTowerFunction hanoiTowerFunction)
+        public ICommand ResetWork => new DelegateCommand(param =>
         {
-            foreach (ItemHanoi item in hanoiTowerFunction.HanoiList)
+            HanoiList.Clear();
+            FieldDefinition();
+            IsButtonEnable = true;
+        });
+
+        private async void MoveRings(List<ItemHanoi> list)
+        {
+            for(int i = 0; i < list.Count; i++)
             {
-                await Task.Delay(1000);
-                MoveRing(item.FromStick, item.ToStick);
+                MoveRing(list[i].FromStick, list[i].ToStick);
+                await Task.Delay(1100 - Slider);
             }
+            IsButtonEnable = true;
         }
 
         private void MoveRing(int from, int to)
@@ -144,6 +180,14 @@ namespace Alg_lab_2.ViewModel
                 default:
                     return null;
             }
+        }
+
+        private void ClearData()
+        {
+            Canvas0.Children.Clear();
+            Canvas1.Children.Clear();
+            Canvas2.Children.Clear();
+            HanoiList.Clear();
         }
 
     }
