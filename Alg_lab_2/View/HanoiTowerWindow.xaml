@@ -5,8 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alg_lab_2.View"
         mc:Ignorable="d"
-        Title="HanoiTowerWindow" Height="450" Width="800">
-    <Grid>
+        Title="HanoiTowerWindow" Height="530" Width="800">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="100*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Canvas Background="Black" x:Name="gameField" Margin="0,0,8,0" Width="792" Height="440" Grid.ColumnSpan="5" Grid.RowSpan="5">
+            <Rectangle Fill="#FFFEF7" Height="20" RadiusX="5" RadiusY="5" Canvas.Left="48" Stroke="#FFFEF7" Canvas.Bottom="0" Width="700"/>
+            
+            <Rectangle Fill="#FFFEF7" Height="270" RadiusX="2" RadiusY="2" Canvas.Left="143" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
+            <Rectangle Fill="#FFFEF7" Height="270" RadiusX="2" RadiusY="2" Canvas.Left="391" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
+            <Rectangle Fill="#FFFEF7" Height="270" RadiusX="2" RadiusY="2" Canvas.Right="143" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
+
+            <Canvas Height="300" x:Name="column0" Canvas.Left="48" Canvas.Bottom="20" Width="200">
+                <ContentPresenter Content="{Binding Canvas0}" />
+            </Canvas>
+            <Canvas Height="300" x:Name="column1" Canvas.Left="296" Canvas.Bottom="20" Width="200">
+                <ContentPresenter Content="{Binding Canvas1}" />
+            </Canvas>
+            <Canvas Height="300" x:Name="column2" Canvas.Left="544" Canvas.Bottom="20" Width="200">
+                <ContentPresenter Content="{Binding Canvas2}" />
+            </Canvas>
+        </Canvas>
+        <TextBox x:Name="Count" Text ="{Binding CountOfRings}" Grid.Row="1" Grid.Column="1" FontSize="15" HorizontalContentAlignment = "Center"
+                VerticalContentAlignment = "Center" >
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+
+        <Button  x:Name="GetSetting"   Content="Set" Command="{Binding GetSetting}" Grid.Column="3" Grid.Row="1" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button  x:Name="Start" Content="Start"  IsEnabled="{Binding IsButtonEnable}" Command="{Binding StartWork}" Grid.Column="1" Grid.Row="3" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button  x:Name="Reset" Content="Reset" Command="{Binding ResetWork}" Grid.Column="3" Grid.Row="3" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         
+        <Slider x:Name="Slader" Grid.Row="6" Grid.ColumnSpan="4" Grid.Column="1" Minimum="1" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
     </Grid>
 </Window>
