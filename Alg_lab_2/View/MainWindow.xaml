@@ -19,14 +19,14 @@
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="Fractal" Command="{Binding  StartWorkFractal}" Grid.Column="1" Grid.Row="1" Background="Ivory">
+        <Button x:Name="DragonFractal" Command="{Binding  StartWorkFractal}" Grid.Column="1" Grid.Row="1" Background="Ivory">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="20"/>
                 </Style>
             </Button.Resources>
             <Button.Content>
-                <TextBlock FontSize="35" Text="Fractal" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="34" Text="Dragon Fractal" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
         <Button x:Name="Hannoi" Command="{Binding  StartWorkHanoi}" Grid.Column="1" Grid.Row="3" Background="Ivory">
@@ -36,7 +36,7 @@
                 </Style>
             </Button.Resources>
             <Button.Content>
-                <TextBlock FontSize="35" Text="Hanoi Tower" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="34" Text="Hanoi Tower" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
     </Grid>

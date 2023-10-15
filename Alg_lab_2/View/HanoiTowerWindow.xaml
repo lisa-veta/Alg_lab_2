@@ -26,10 +26,8 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Canvas Background="Black" x:Name="gameField" Margin="0,0,8,0" Width="792" Height="440" Grid.ColumnSpan="5" Grid.RowSpan="5">
-            <Rectangle Fill="#FFFEF7" Height="20" RadiusX="5" RadiusY="5" Canvas.Left="48" Stroke="#FFFEF7" Canvas.Bottom="0" Width="200"/>
-            <Rectangle Fill="#FFFEF7" Height="20" RadiusX="5" RadiusY="5" Canvas.Left="296" Stroke="#FFFEF7" Canvas.Bottom="0" Width="200"/>
-            <Rectangle Fill="#FFFEF7" Height="20" RadiusX="5" RadiusY="5" Canvas.Right="48" Stroke="#FFFEF7" Canvas.Bottom="0" Width="200"/>
-            <!--Линии-->
+            <Rectangle Fill="#FFFEF7" Height="20" RadiusX="5" RadiusY="5" Canvas.Left="48" Stroke="#FFFEF7" Canvas.Bottom="0" Width="700"/>
+            
             <Rectangle Fill="#FFFEF7" Height="270" RadiusX="2" RadiusY="2" Canvas.Left="143" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
             <Rectangle Fill="#FFFEF7" Height="270" RadiusX="2" RadiusY="2" Canvas.Left="391" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
             <Rectangle Fill="#FFFEF7" Height="270" RadiusX="2" RadiusY="2" Canvas.Right="143" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
@@ -61,11 +59,11 @@
             </Button.Resources>
         </Button>
 
-        <Button  x:Name="Start" Content="Start"  IsEnabled="{Binding IsEnabled}" Command="{Binding StartWork}" Grid.Column="1" Grid.Row="3" Background="Ivory">
+        <Button  x:Name="Start" Content="Start"  IsEnabled="{Binding IsButtonEnable}" Command="{Binding StartWork}" Grid.Column="1" Grid.Row="3" Background="Ivory">
             <Button.Resources>
-            <Style TargetType="Border">
-                <Setter Property="CornerRadius" Value="20"/>
-            </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
             </Button.Resources>
         </Button>
 

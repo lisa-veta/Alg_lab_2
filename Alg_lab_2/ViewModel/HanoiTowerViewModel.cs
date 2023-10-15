@@ -79,7 +79,7 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
-        private bool _isEnable = true;
+        private bool _isEnable = false;
         public bool IsButtonEnable
         {
             get { return _isEnable; }
@@ -95,6 +95,7 @@ namespace Alg_lab_2.ViewModel
             CountOfRingsInt = CheckCombo(CountOfRings, MinValueForHanoi, MaxValueForHanoi);
             if(!isNotHasError) { CountOfRings = ""; return; };
             FieldDefinition();
+            IsButtonEnable = true;
         });
 
         private void FieldDefinition()
@@ -127,24 +128,24 @@ namespace Alg_lab_2.ViewModel
         {
             HanoiTowerFunction hanoiTowerFunction = new HanoiTowerFunction();
             HanoiList.Clear();
+            CountOfRings = CountOfRingsInt.ToString(); ;
             hanoiTowerFunction.HanoiList.Clear();
             hanoiTowerFunction.DoHanoiTower(CountOfRingsInt);
             HanoiList = hanoiTowerFunction.HanoiList;
             MoveRings(hanoiTowerFunction.HanoiList);
-            IsButtonEnable = false;
         });
 
         public ICommand ResetWork => new DelegateCommand(param =>
         {
             HanoiList.Clear();
             FieldDefinition();
-            IsButtonEnable = true;
         });
 
         private async void MoveRings(List<ItemHanoi> list)
         {
             for(int i = 0; i < list.Count; i++)
             {
+                IsButtonEnable = false;
                 MoveRing(list[i].FromStick, list[i].ToStick);
                 await Task.Delay(1100 - Slider);
             }
