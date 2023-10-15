@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Alg_lab_2.View" xmlns:viewmodel="clr-namespace:Alg_lab_2.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="300">
-    <Grid>
+    <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
@@ -19,14 +19,24 @@
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
-        <Button x:Name="Fractal" Command="{Binding  StartWorkFractal}" Grid.Column="1" Grid.Row="1" Background="DarkSeaGreen">
+        <Button x:Name="DragonFractal" Command="{Binding  StartWorkFractal}" Grid.Column="1" Grid.Row="1" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
-                <TextBlock FontSize="12" Text="Fractal" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="34" Text="Dragon Fractal" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="Hannoi" Command="{Binding  StartWorkHanoi}" Grid.Column="1" Grid.Row="3" Background="DarkSeaGreen">
+        <Button x:Name="Hannoi" Command="{Binding  StartWorkHanoi}" Grid.Column="1" Grid.Row="3" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
-                <TextBlock FontSize="12" Text="Hannoi Tower" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock FontSize="34" Text="Hanoi Tower" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
     </Grid>
