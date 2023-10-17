@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alg_lab_2.View"
         mc:Ignorable="d"
-        Title="HanoiTowerWindow" Height="700" Width="800">
+        Title="HanoiTowerWindow" Height="700" Width="800"
+        ResizeMode="NoResize">
     <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
@@ -19,14 +20,16 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="25*" />
             <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="25*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="30*" />
             <ColumnDefinition Width="100*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Canvas Background="Black" x:Name="gameField" Margin="-2,17,10,10" Width="792" Height="440" Grid.ColumnSpan="6" Grid.Row="4">
-            <Rectangle Fill="#FFFEF7" Height="20" RadiusX="5" RadiusY="5" Canvas.Left="36" Stroke="#FFFEF7" Canvas.Bottom="0" Width="720" HorizontalAlignment="Left" Canvas.Top="420" VerticalAlignment="Center"/>
+            <Rectangle Fill="#FFFEF7"  Height="20" RadiusX="5" RadiusY="5" Canvas.Left="36" Stroke="#FFFEF7" Canvas.Bottom="0" Width="720" HorizontalAlignment="Left" Canvas.Top="420" VerticalAlignment="Center"/>
 
             <Rectangle Fill="#FFFEF7" Height="400" RadiusX="2" RadiusY="2" Canvas.Left="143" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
             <Rectangle Fill="#FFFEF7" Height="400" RadiusX="2" RadiusY="2" Canvas.Left="391" Stroke="#FFFEF7" Canvas.Bottom="20" Width="10"/>
@@ -74,7 +77,9 @@
                 </Style>
             </Button.Resources>
         </Button>
-
-        <Slider x:Name="Slader" Grid.Row="6" Grid.ColumnSpan="4" Grid.Column="1" Minimum="1" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
+        <ScrollViewer Grid.Row="1" Grid.Column="5" Grid.ColumnSpan="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Foreground="#FFFEF7" ItemsSource="{Binding Steps}"/>
+        </ScrollViewer>
+        <Slider x:Name="Slader" Grid.Row="6" Grid.ColumnSpan="6" Grid.Column="1" Minimum="1" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
     </Grid>
 </Window>

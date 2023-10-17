@@ -1,19 +1,10 @@
 ﻿using Alg_lab_2.Model;
 using Alg_lab_2.View;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 using static Alg_lab_2.Model.CheckingErrors;
 using static Alg_lab_2.Model.ImportData;
 
@@ -21,12 +12,15 @@ namespace Alg_lab_2.ViewModel
 {
     public class DragonFractalViewModel : BaseViewModel
     {
-        public int Width = 400;
-        public int Height = 500;
+        public static int Width = WidtH;
+        public static int Height = HeighT;
         public DragonFractal WindowDF { get; set; }
         public int minValue = 1;
+        public static List<Line> Lines = new List<Line>();
 
         private int _slider = 500;
+        private int CountInt;
+
         public int Slider
         {
             get { return _slider; }
@@ -47,7 +41,6 @@ namespace Alg_lab_2.ViewModel
                 OnPropertyChanged();
             }
         }
-        private int CountInt;
 
         private Canvas _canv = new Canvas();
         public Canvas Canvas
@@ -60,7 +53,6 @@ namespace Alg_lab_2.ViewModel
             }
         }
 
-        public static List<Line> Lines = new List<Line>();
         public ICommand StartWork => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
@@ -68,10 +60,11 @@ namespace Alg_lab_2.ViewModel
             CountInt = CheckCombo(Count, MinValueForFractal, MaxValueForFractal);
             if (!isNotHasError) { Count = ""; return; };
             DragonFunction dragonFunction = new DragonFunction();
-            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            dragonFunction.Invoke(startWightOnePoint, startHeightOnePoint, startWightTwoPoint, startHeightTwoPoint, CountInt);
             Lines = dragonFunction.Lines;
             DrawLines(Lines);
         });
+
         public ICommand DoForward => new DelegateCommand(param =>
         {
             Canvas.Children.Clear();
@@ -81,7 +74,7 @@ namespace Alg_lab_2.ViewModel
             CountInt = CheckCombo(Count, MinValueForFractal, MaxValueForFractal);
             if (!isNotHasError) { Count = (--CountInt).ToString(); };
             DragonFunction dragonFunction = new DragonFunction();
-            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            dragonFunction.Invoke(startWightOnePoint, startHeightOnePoint, startWightTwoPoint, startHeightTwoPoint, CountInt);
             Lines = dragonFunction.Lines;
             ShowPicture(Lines);
         });
@@ -95,7 +88,7 @@ namespace Alg_lab_2.ViewModel
             CountInt = CheckCombo(Count, MinValueForFractal, MaxValueForFractal);
             if (!isNotHasError) { Count = (++CountInt).ToString(); };
             DragonFunction dragonFunction = new DragonFunction();
-            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            dragonFunction.Invoke(startWightOnePoint, startHeightOnePoint, startWightTwoPoint, startHeightTwoPoint, CountInt);
             Lines = dragonFunction.Lines;
             ShowPicture(Lines);
         });
@@ -103,9 +96,10 @@ namespace Alg_lab_2.ViewModel
         public ICommand EndWork => new DelegateCommand(param =>
         {
             if (CountInt == 0) return; 
+            Canvas.Children.Clear();
             Lines.Clear();
             DragonFunction dragonFunction = new DragonFunction();
-            dragonFunction.Invoke(Width / 2 - 100, Height / 2 - 100, Width / 2 + 130, Height / 2 + 180, CountInt);
+            dragonFunction.Invoke(startWightOnePoint, startHeightOnePoint, startWightTwoPoint, startHeightTwoPoint, CountInt);
             Lines = dragonFunction.Lines;
             ShowPicture(Lines);
         });
@@ -117,7 +111,6 @@ namespace Alg_lab_2.ViewModel
             ClearData();
         });
         
-
         public async void DrawLines(List<Line> lines)
         {
             for(int i = 0; i < lines.Count; i++)
@@ -126,6 +119,7 @@ namespace Alg_lab_2.ViewModel
                 await Task.Delay(1001 - Slider);
             }
         }
+
         public void ShowPicture(List<Line> lines)
         {
             for (int i = 0; i < lines.Count; i++)
@@ -139,7 +133,5 @@ namespace Alg_lab_2.ViewModel
             CountInt = 0;
             Count = "";
         }
-
-       
     }
 }
