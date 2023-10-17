@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Alg_lab_2.View" 
         mc:Ignorable="d"
-        Title="DragonFractal" Height="650" Width="800">
+        Title="DragonFractal" Height="650" Width="800"
+        ResizeMode="NoResize">
     <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
@@ -93,15 +94,9 @@
                 </Style>
             </TextBox.Resources>
         </TextBox>
-
-        <!--<Canvas Name="Canv" Width="500" Height="400" Grid.Column="3" Grid.Row="1" Grid.RowSpan="6" >-->
-        <!--<Image x:Name="Imag" Source="{Binding Img}"></Image> -->
-        <!--</Canvas> -->
-        <!-- <Image x:Name="Imag" Grid.Column="3" Grid.Row="1" Source="{Binding Img}" Grid.RowSpan="6"></Image> -->
         <Canvas Name="Canv"  Width="{Binding Width}" Height="{Binding Height}" Grid.Column="4" Grid.Row="1" Grid.RowSpan="8" >
             <ContentPresenter Content="{Binding Canvas}" />
         </Canvas>
         <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Minimum="100" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
-       
     </Grid>
 </Window>

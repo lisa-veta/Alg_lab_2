@@ -3,6 +3,7 @@ using Alg_lab_2.Properties;
 using Alg_lab_2.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,8 +18,10 @@ namespace Alg_lab_2.ViewModel
     public class HanoiTowerViewModel : BaseViewModel
     {
         public HanoiTowerWindow WindowHT { get; set; }
-        private int CountOfRingsInt;
         public static List<ItemHanoi> HanoiList = new List<ItemHanoi>();
+        public ObservableCollection<string> Steps { get; set; } = new ObservableCollection<string>();
+
+        private int CountOfRingsInt;
 
         private int _slider = 500;
         public int Slider
@@ -96,9 +99,7 @@ namespace Alg_lab_2.ViewModel
 
         private void FieldDefinition()
         {
-            Canvas0.Children.Clear();
-            Canvas1.Children.Clear();
-            Canvas2.Children.Clear();
+            ClearCanvas();
             int RingWidth = FirstRingWidth;
             for (int i = 0; i < CountOfRingsInt; i++)
             {
@@ -106,8 +107,8 @@ namespace Alg_lab_2.ViewModel
                 rect.Width = RingWidth;
                 rect.Height = RingHeight;
 
-                Canvas.SetBottom(rect, (Canvas0.Children.Count - 15) * RingHeight);//задаем положение по нижней границе каваса
-                Canvas.SetLeft(rect, 100 - RingWidth / 2);//кольцо по центру
+                Canvas.SetBottom(rect, (Canvas0.Children.Count - 15) * RingHeight);
+                Canvas.SetLeft(rect, 100 - RingWidth / 2);
 
                 rect.Fill = (SolidColorBrush)new BrushConverter().ConvertFrom(RingColors[i]);
                 rect.Stroke = (SolidColorBrush)new BrushConverter().ConvertFrom(RingColors[i]);
@@ -118,6 +119,13 @@ namespace Alg_lab_2.ViewModel
                 Canvas0.Children.Add(rect);
                 RingWidth -= RingWidthFall * 2;
             }
+        }
+
+        private void ClearCanvas()
+        {
+            Canvas0.Children.Clear();
+            Canvas1.Children.Clear();
+            Canvas2.Children.Clear();
         }
 
         public ICommand StartWork => new DelegateCommand(param => 
@@ -144,6 +152,7 @@ namespace Alg_lab_2.ViewModel
                 IsButtonEnable = false;
                 MoveRing(list[i].FromStick, list[i].ToStick);
                 await Task.Delay(1100 - Slider);
+                AddStepInWindow(i, list[i]);
             }
             IsButtonEnable = true;
         }
@@ -164,6 +173,19 @@ namespace Alg_lab_2.ViewModel
             toColumn.Children.Add(rect);
         }
 
+        private void AddStepInWindow(int ind, ItemHanoi itemHanoi)
+        {
+            if (ind > 7)
+            {
+                Steps.RemoveAt(0);
+                Steps.Add($"{ind + 1}: {itemHanoi.FromStick + 1} --> {itemHanoi.ToStick + 1}");
+            }
+            else 
+            {
+                Steps.Add($"{ind + 1}: {itemHanoi.FromStick + 1} --> {itemHanoi.ToStick + 1}");
+            }
+        }
+
         private Canvas SetCanvas(int stick)
         {
             switch (stick)
@@ -178,14 +200,5 @@ namespace Alg_lab_2.ViewModel
                     return null;
             }
         }
-
-        private void ClearData()
-        {
-            Canvas0.Children.Clear();
-            Canvas1.Children.Clear();
-            Canvas2.Children.Clear();
-            HanoiList.Clear();
-        }
-
     }
 }

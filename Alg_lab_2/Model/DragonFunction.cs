@@ -13,6 +13,7 @@ namespace Alg_lab_2.Model
     public class DragonFunction
     {
         public List<Line> Lines = new List<Line>(); 
+
         public void Invoke(int x1, int y1, int x2, int y2, int n)
         {
             int xn, yn;
@@ -28,6 +29,7 @@ namespace Alg_lab_2.Model
                 AddLine(x1, y1, x2, y2);
             }
         }
+
         private void AddLine(int x1, int y1, int x2, int y2)
         {
             Line myline = new Line();

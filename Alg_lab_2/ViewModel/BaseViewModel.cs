@@ -16,6 +16,5 @@ namespace Alg_lab_2.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-
     }
 }

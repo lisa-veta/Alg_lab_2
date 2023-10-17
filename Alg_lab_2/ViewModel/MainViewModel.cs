@@ -44,6 +44,5 @@ namespace Alg_lab_2.ViewModel
             hanoiTowerWindow.DataContext = hanoiTowerViewModel;
             hanoiTowerWindow.Show();
         });
-
     }
 }
