@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Alg_lab_2.View" 
         mc:Ignorable="d"
         Title="DragonFractal" Height="650" Width="800">
-    <Grid>
+    <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="20*"/>
@@ -30,34 +30,69 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="Edit" Command="{Binding  StartWork}" Grid.Column="1" Grid.Row="3" Background="DarkSeaGreen">
+        <Button x:Name="Edit" Command="{Binding  StartWork}" Grid.Column="1" Grid.Row="3" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
                 <TextBlock FontSize="14" Text="Start" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
 
-        <Button x:Name="End" Command="{Binding  EndWork}" Grid.Column="3" Grid.Row="3" Background="DarkSeaGreen">
+        <Button x:Name="End" Command="{Binding  EndWork}" Grid.Column="3" Grid.Row="3" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
                 <TextBlock FontSize="14" Text="End" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="DoForward" Command="{Binding  DoForward}" Grid.Column="3" Grid.Row="5" Background="DarkSeaGreen">
+
+        <Button x:Name="DoForward" Command="{Binding  DoForward}" Grid.Column="3" Grid.Row="5" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
                 <TextBlock FontSize="20" Text="→" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="DoBack" Command="{Binding  DoBack}" Grid.Column="1" Grid.Row="5" Background="DarkSeaGreen">
+
+        <Button x:Name="DoBack" Command="{Binding  DoBack}" Grid.Column="1" Grid.Row="5" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
                 <TextBlock FontSize="20" Text="←" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="DoDelete" Command="{Binding  DoDelete}" Grid.Column="1" Grid.Row="7" Background="DarkSeaGreen">
+
+        <Button x:Name="DoDelete" Command="{Binding  DoDelete}" Grid.Column="1" Grid.Row="7" Background="Ivory">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
             <Button.Content>
                 <TextBlock FontSize="14" Text="Delete" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
 
-        <TextBox Grid.Column="1" Grid.Row ="1" Text="{Binding Count}" TextWrapping="Wrap"  TextAlignment="Center"></TextBox>
+        <TextBox Grid.Column="1" Grid.Row ="1" Text="{Binding Count}" HorizontalContentAlignment = "Center"
+                VerticalContentAlignment = "Center">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
 
         <!--<Canvas Name="Canv" Width="500" Height="400" Grid.Column="3" Grid.Row="1" Grid.RowSpan="6" >-->
         <!--<Image x:Name="Imag" Source="{Binding Img}"></Image> -->
@@ -66,7 +101,7 @@
         <Canvas Name="Canv"  Width="{Binding Width}" Height="{Binding Height}" Grid.Column="4" Grid.Row="1" Grid.RowSpan="8" >
             <ContentPresenter Content="{Binding Canvas}" />
         </Canvas>
-        <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Value="{Binding Slider}" Minimum="{Binding minValue}" Maximum="{Binding Count}"></Slider>
-        <TextBox Grid.Column="1" Grid.Row ="10" Text="{Binding Slider}" TextWrapping="Wrap"  TextAlignment="Center"></TextBox>
+        <Slider x:Name="Slider" Grid.Row="10" Grid.Column="4" Minimum="100" Maximum="1000" Value="{Binding Slider}" SmallChange="10" LargeChange="10"></Slider>
+       
     </Grid>
 </Window>
